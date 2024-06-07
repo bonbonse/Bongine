@@ -1,0 +1,5 @@
+namespace Bongine {
+
+	int checkGLFW();
+
+}
