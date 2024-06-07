@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace Bongine {
 
 #pragma comment (lib, "opengl32.lib")
@@ -18,7 +20,7 @@ namespace Bongine {
 
 		virtual void update() {}
 	private:
-
+		std::unique_ptr<class Window> m_pWindow;
 	};
 
 	
