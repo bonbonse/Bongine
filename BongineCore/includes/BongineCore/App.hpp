@@ -1,10 +1,12 @@
 #pragma once
 
+#include "BongineCore/Event.hpp"
+
 #include <memory>
+#include "Event.hpp"
+#pragma comment (lib, "opengl32.lib")
 
 namespace Bongine {
-
-#pragma comment (lib, "opengl32.lib")
 
 	class App
 	{
@@ -21,6 +23,9 @@ namespace Bongine {
 		virtual void update() {}
 	private:
 		std::unique_ptr<class Window> m_pWindow;
+
+		EventDispatcher m_event_dispatcher;
+		bool m_CloseWindow = false;
 	};
 
 	

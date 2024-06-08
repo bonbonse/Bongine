@@ -5,6 +5,7 @@ set(ENGINE_PROJECT_NAME BongineCore)
 set(ENGINE_PUBLIC_INCLUDES
 	includes/BongineCore/App.hpp
 	includes/BongineCore/Log.hpp
+	includes/BongineCore/Event.hpp
 )
 
 set(ENGINE_PRIVATE_SOURCES
@@ -34,3 +35,4 @@ target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE spdlog)
 
 add_subdirectory(../external/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
 target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE glad)
+
