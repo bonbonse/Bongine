@@ -11,18 +11,26 @@ set(ENGINE_PUBLIC_INCLUDES
 set(ENGINE_PRIVATE_SOURCES
 	src/BongineCore/App.cpp
 	src/BongineCore/Window.cpp
+	src/BongineCore/Rendering/OpenGL/ShaderProgram.cpp
+	src/BongineCore/Rendering/OpenGL/VertexBuffer.cpp
 )
 
 set(ENGINE_PRIVATE_INCLUDES
 	includes/BongineCore/Window.hpp
+	src/BongineCore/Rendering/OpenGL/ShaderProgram.hpp
+	src/BongineCore/Rendering/OpenGL/VertexBuffer.hpp
 )
 
+set (ENGINE_ALL_SOURCES 
+		${ENGINE_PRIVATE_INCLUDES}
+		${ENGINE_PUBLIC_INCLUDES}
+		${ENGINE_PRIVATE_SOURCES}
+)
 
 add_library(${ENGINE_PROJECT_NAME} STATIC	
-	${ENGINE_PUBLIC_INCLUDES}
-	${ENGINE_PRIVATE_INCLUDES}
-	${ENGINE_PRIVATE_SOURCES}
+	${ENGINE_ALL_SOURCES}
 )
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${ENGINE_ALL_SOURCES})
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC includes)
 target_compile_features(${ENGINE_PROJECT_NAME} PUBLIC cxx_std_17)
@@ -36,3 +44,31 @@ target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE spdlog)
 add_subdirectory(../external/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
 target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE glad)
 
+set(IMGUI_INCLUDES
+	../external/imgui/imgui.h
+	../external/imgui/backends/imgui_impl_glfw.h
+	../external/imgui/backends/imgui_impl_opengl3.h
+)
+set(IMGUI_SOURCES
+	../external/imgui/imgui.cpp
+	../external/imgui/backends/imgui_impl_glfw.cpp
+	../external/imgui/backends/imgui_impl_opengl3.cpp
+	../external/imgui/imgui_draw.cpp
+	../external/imgui/imgui_tables.cpp
+	../external/imgui/imgui_widgets.cpp
+	../external/imgui/imgui_demo.cpp
+)
+
+
+
+add_library(ImGui STATIC	
+	${IMGUI_INCLUDES}
+	${IMGUI_SOURCES}
+)
+
+
+target_include_directories(ImGui PUBLIC ../external)
+target_include_directories(ImGui PUBLIC ../external/imgui)
+target_link_libraries(ImGui PRIVATE glad glfw)
+
+target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE ImGui)

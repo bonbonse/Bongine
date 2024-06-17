@@ -2,6 +2,8 @@
 
 #include "BongineCore/Event.hpp"
 
+#include <string>
+
 #include <memory>
 #include "Event.hpp"
 #pragma comment (lib, "opengl32.lib")
@@ -18,7 +20,7 @@ namespace Bongine {
 		App& operator=(const App&) = delete;
 		App& operator=(App&&) = delete;
 
-		virtual int start(unsigned int window_width, unsigned int window_height, const char* title);
+		virtual int start(unsigned int window_width, unsigned int window_height, std::string title);
 
 		virtual void update() {}
 	private:

@@ -4,6 +4,7 @@
 #include "BongineCore/Window.hpp"
 #include "BongineCore/Event.hpp"
 
+
 namespace Bongine {
 	
 	App::App()
@@ -16,8 +17,9 @@ namespace Bongine {
 		LOG_INFO("Closing App");
 	}
 
-    int App::start(unsigned int window_width, unsigned int window_height, const char* title)
+    int App::start(unsigned int window_width, unsigned int window_height, std::string title)
     {
+
         m_pWindow = std::make_unique<Window>(title, window_width, window_height);
 
         m_event_dispatcher.add_event_listener<EventMouseMoved>(
@@ -30,6 +32,13 @@ namespace Bongine {
             [](EventWindowResize& event)
             {
                 LOG_INFO("[Resized] Changed size to {0}x{1}", event.height, event.height);
+            });
+
+        m_event_dispatcher.add_event_listener<EventWindowClose>(
+            [&](EventWindowClose& event)
+            {
+                LOG_INFO("[WindowClose] Window close");
+                m_CloseWindow = true;
             });
 
         m_event_dispatcher.add_event_listener<EventWindowClose>(
